@@ -5,6 +5,8 @@ pnpm-debug.log*
 # Python
 .venv
 .pytest_cache
+__pycache__
+*.pyc
 
 # Misc.
 .idea
