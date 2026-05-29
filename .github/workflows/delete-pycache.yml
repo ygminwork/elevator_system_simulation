@@ -1,0 +1,26 @@
+name: Delete Entire __pycache__ Folders
+
+on:
+  workflow_dispatch: # Allows you to trigger manually
+
+jobs:
+  delete-pycache:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Remove all __pycache__ folders
+        run: |
+          find . -type d -name "__pycache__" -exec rm -r {} +
+      
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git commit -m "Deleted all __pycache__ folders"
+          git push origin ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
